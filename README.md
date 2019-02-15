@@ -1,4 +1,6 @@
-# Modern Web Application Architectures Lesson 1 - No tools, no frameworks, no libraries
+# Modern Web Application Architectures Lesson 1
+
+## No tools, no frameworks, no libraries
 
 Build a calculator web app with the following:
 
