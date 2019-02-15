@@ -20,8 +20,8 @@
 
             .calculator {
                 display: grid;
-                grid-template-columns: 25% 25% 25% 25%;
-                grid-template-rows: 20% 20% 20% 20%;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
                 height: 100%;
                 width: 100%;
             }
@@ -31,7 +31,7 @@
                 justify-content: flex-end;
                 align-items: center;
                 grid-column-start: 1;
-                grid-column-end: 5;
+                grid-column-end: 4;
                 box-shadow: 0px 0px 1px black;
                 margin: 5px;
                 padding: 5px;
@@ -56,6 +56,7 @@
 
         <div class="calculator">
             <div class="calculator-output">0</div>
+            <div class="calculator-key">del</div>
 
             <div class="calculator-key">7</div>
             <div class="calculator-key">8</div>
@@ -81,36 +82,70 @@
         <script>
             document.querySelectorAll('.calculator-key').forEach((element) => {
                 element.addEventListener('click', (e) => {
-                    console.log(e.target.textContent);
-
                     const calculatorOutput = document.querySelector('.calculator-output');
                     const keyText = e.target.textContent;
-                    
-                    // TODO I think I am doing this in an overly complicated way
-                    // TODO this is going to be perfect to show the merits of state management and redux though
-                    // TODO make it as simple as possible without making a state machine or doing something like redux
-                    // TODO but do not make it contrived
-                    if (!isNaN(parseInt(keyText))) {
-                        if (calculatorOutput.textContent === '0') {
-                            calculatorOutput.textContent = keyText;                        
-                        }
-                        else {
-                            calculatorOutput.textContent += keyText;                     
-                        }
-                    }
-                    else if (keyText === '.') {
-                        if (!calculatorOutput.textContent.includes('.')) {
-                            calculatorOutput.textContent += keyText;                     
-                        }
-                    }
-                    else if (keyText === '=') {
-                        // TODO calculate the result
-                    }
-                    else {
-                        calculatorOutput.textContent += keyText;                     
-                    }
+                    calculatorOutput.textContent = calculateNewOutput(keyText, calculatorOutput.textContent);
                 });
             });
+
+            function calculateNewOutput(inputText, currentOutputText) {
+                if (
+                    inputText === '0' ||
+                    inputText === '1' ||
+                    inputText === '2' ||
+                    inputText === '3' ||
+                    inputText === '4' ||
+                    inputText === '5' ||
+                    inputText === '6' ||
+                    inputText === '7' ||
+                    inputText === '8' ||
+                    inputText === '9'
+                ) {
+                    if (currentOutputText === '0') {
+                        return inputText;
+                    }
+                    else {
+                        return currentOutputText + inputText;
+                    }
+                }
+
+                if (
+                    inputText === '+' ||
+                    inputText === '-' ||
+                    inputText === '/' ||
+                    inputText === '*' ||
+                    inputText === '.'
+                ) {
+                    if (
+                        currentOutputText.endsWith('+') ||
+                        currentOutputText.endsWith('-') ||
+                        currentOutputText.endsWith('/') ||
+                        currentOutputText.endsWith('*') ||
+                        currentOutputText.endsWith('.')
+                    ) {
+                        return currentOutputText;
+                    }
+                    else {
+                        return currentOutputText + inputText;
+                    }
+                }
+
+                if (inputText === '=') {
+                    const result = eval(currentOutputText);
+                    return result;
+                }
+
+                if (inputText === 'del') {
+                    if (currentOutputText.length === 1) {
+                        return '0';
+                    }
+                    else {
+                        return currentOutputText.slice(0, currentOutputText.length - 1);
+                    }
+                }
+
+                alert('Something has gone terribly wrong');
+            }
         </script>
     </body>
 </html>
