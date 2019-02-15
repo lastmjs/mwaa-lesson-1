@@ -2,10 +2,66 @@
 
 <html>
     <head>
-
+        <title>Calculator</title>
     </head>
 
     <body>
-        
+        <style>
+            html {
+                height: 100%;
+                width: 100%;
+            }
+
+            body {
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+
+            .calculator {
+                display: grid;
+                grid-template-columns: 25% 25% 25% 25%;
+                grid-template-rows: 25% 25% 25% 25%;
+                height: 100%;
+                width: 100%;
+            }
+
+            .calculator-key {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: background-color .25s ease-in-out;
+                box-shadow: 0px 0px 1px black;
+                margin: 5px;
+                font-size: calc(25px + 1vmin);
+            }
+
+            .calculator-key:hover {
+                background-color: rgba(0, 0, 0, .05);
+            }
+        </style>
+
+        <div class="calculator">
+            <div class="calculator-key">7</div>
+            <div class="calculator-key">8</div>
+            <div class="calculator-key">9</div>
+            <div class="calculator-key">/</div>
+
+            <div class="calculator-key">4</div>
+            <div class="calculator-key">5</div>
+            <div class="calculator-key">6</div>
+            <div class="calculator-key">*</div>
+
+            <div class="calculator-key">1</div>
+            <div class="calculator-key">2</div>
+            <div class="calculator-key">3</div>
+            <div class="calculator-key">-</div>
+
+            <div class="calculator-key">0</div>
+            <div class="calculator-key">.</div>
+            <div class="calculator-key">=</div>
+            <div class="calculator-key">+</div>
+        </div>
     </body>
 </html>
