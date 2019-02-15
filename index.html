@@ -77,5 +77,40 @@
             <div class="calculator-key">=</div>
             <div class="calculator-key">+</div>
         </div>
+
+        <script>
+            document.querySelectorAll('.calculator-key').forEach((element) => {
+                element.addEventListener('click', (e) => {
+                    console.log(e.target.textContent);
+
+                    const calculatorOutput = document.querySelector('.calculator-output');
+                    const keyText = e.target.textContent;
+                    
+                    // TODO I think I am doing this in an overly complicated way
+                    // TODO this is going to be perfect to show the merits of state management and redux though
+                    // TODO make it as simple as possible without making a state machine or doing something like redux
+                    // TODO but do not make it contrived
+                    if (!isNaN(parseInt(keyText))) {
+                        if (calculatorOutput.textContent === '0') {
+                            calculatorOutput.textContent = keyText;                        
+                        }
+                        else {
+                            calculatorOutput.textContent += keyText;                     
+                        }
+                    }
+                    else if (keyText === '.') {
+                        if (!calculatorOutput.textContent.includes('.')) {
+                            calculatorOutput.textContent += keyText;                     
+                        }
+                    }
+                    else if (keyText === '=') {
+                        // TODO calculate the result
+                    }
+                    else {
+                        calculatorOutput.textContent += keyText;                     
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
